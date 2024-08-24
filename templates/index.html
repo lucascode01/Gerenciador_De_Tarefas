@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron mt-5">
+            <h1 class="display-4">Bem-vindo ao Gerenciador de Tarefas</h1>
+            <p class="lead">Gerencie suas tarefas de forma simples e rápida.</p>
+            <hr class="my-4">
+            
+            <!-- Formulário para adicionar tarefas -->
+            <form action="/add" method="POST">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="task" placeholder="Nova tarefa" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Tarefa</button>
+            </form>
+
+            <!-- Lista de tarefas -->
+            <ul class="list-group mt-4">
+                {% for task in tasks %}
+                    <li class="list-group-item">
+                        {{ task }}
+                        <form action="/delete/{{ loop.index0 }}" method="POST" class="float-right">
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background-image: url('static/images/1.png');
+            color: rgb(209, 209, 209);
+            text-align: center;
+        }
+        .btn {
+            background-color: #520d8f;
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 9px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #ff4500;
+        }
+    </style>
+</body>
+
+</html>
