@@ -10,13 +10,12 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="jumbotron mt-5">
             <h1 class="display-4">Bem-vindo ao Gerenciador de Tarefas</h1>
             <p class="lead">Gerencie suas tarefas de forma simples e rápida.</p>
             <hr class="my-4">
-            
+
             <!-- Formulário para adicionar tarefas -->
             <form action="/add" method="POST">
                 <div class="form-group">
@@ -28,8 +27,11 @@
             <!-- Lista de tarefas -->
             <ul class="list-group mt-4">
                 {% for task in tasks %}
-                    <li class="list-group-item">
-                        {{ task }}
+                    <li class="list-group-item {% if task['completed'] %}list-group-item-success{% endif %}">
+                        {{ task['name'] }}
+                        <form action="/complete/{{ loop.index0 }}" method="POST" class="float-right ml-2">
+                            <button type="submit" class="btn btn-success btn-sm" {% if task['completed'] %}disabled{% endif %}>Concluir</button>
+                        </form>
                         <form action="/delete/{{ loop.index0 }}" method="POST" class="float-right">
                             <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                         </form>
@@ -45,6 +47,7 @@
             color: rgb(209, 209, 209);
             text-align: center;
         }
+
         .btn {
             background-color: #520d8f;
             color: rgb(255, 255, 255);
@@ -56,6 +59,7 @@
             transition: background-color 0.3s ease;
             text-decoration: none;
         }
+
         .btn:hover {
             background-color: #ff4500;
         }
